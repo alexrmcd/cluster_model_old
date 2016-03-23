@@ -1,0 +1,22 @@
+3/23/16
+
+
+
+Storm modules:
+
+constants
+cluster_params
+particle
+astro
+synchrotron
+
+
+
+To compile FORTRAN modules using the Storm modules + DARKSUSY, use the folowing form in makefile. 
+
+<your_program> : <your_program>.f $(LIB)/libdarksusy.a
+	$(FF) $(FOPT) -I$(INC) -L$(LIB) -o <your_program> <your_program>.f constants.o particle.o cluster_params.o astro.o synchrotron.o \
+         -ldarksusy -lFH -lHB
+
+
+To recompile the modules, use the command "make all"

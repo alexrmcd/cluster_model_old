@@ -4,8 +4,12 @@
 //**"****!****"****!****"****!****"****!****"****!****"****!****"****!****"****|
 using namespace std;
 
+#include "Cluster.h"
 #include <cmath>
 #include <iostream>
+#include <string>
+#include <sstream>
+
 
 // array variables declared 
 /*
@@ -28,8 +32,7 @@ double* y;             // y grid
 
 //B_field
 
-int B_model = 1;/*
-B_model = 1;*/
+int B_model = 2;
 
 double B_field_model(double x,double y, int B_model) //third argument "int model" for multile preset models
 {
@@ -45,8 +48,8 @@ double B_field_model(double x,double y, int B_model) //third argument "int model
     
   }
 
-  else{
-    b_field=Bo * pow(( 1 + (x*x+y*y)/(rcore*rcore)),(-2)); // just a fall back
+  else if(B_model == 2){
+    b_field=Bo * pow(( 1 + (x*x+y*y)/(rcore*rcore)),(-2)); // fall back
   }
   return b_field;
 }
@@ -59,55 +62,69 @@ double B_field_model(double x,double y, int B_model) //third argument "int model
 
 
 int create_galaxy_cluster() {
-
+Cluster cluster;
   //cout<<" >>>> create_galaxy_cluster"<<endl;
-  
+    cout << "Enter 1 for default"<< endl;
+string input = "";
+
+int number = 0;
+
+getline(cin, input);
+stringstream myStream(input);
+
+myStream >> number;
+
+
+
+
 
    /* 
   void init(x_min,  x_max, dx,
   y_min,  y_max, dy);
   */
-  
+if(number == 1){
+
 // array variables init
-double x_min = 0;
-double x_max = 20;
-double dx =   .1;
+cluster.x_min = 0;
+cluster.x_max = 10;
+cluster.dx =   1;
 
-double y_min = 0;
-double y_max = 20;
-double dy = .1;
-
-
+cluster.y_min = 0;
+cluster.y_max = 10;
+cluster.dy = 1;
 
 
-int n_pgrid = 10;             // number of points in momentum
-int n_xgrid = 20;             // number of points in x 
-int n_ygrid = 20;             // number of points in y  
+
+
+// number of points in momentum
+cluster.n_xgrid = (cluster.x_max - cluster.x_min)/cluster.dx;             // number of points in x 
+cluster.n_ygrid = (cluster.y_max - cluster.y_min)/cluster.dy;             // number of points in y  
 /*double* x = 0; 
 double* y = 0;*/
 // array variables init end
 
-
-
+}
 
 
 
 
 
   // B-FIELD DISTRIBUTION
-  float B_field[n_xgrid][n_ygrid];
+  float B_field[cluster.n_xgrid][cluster.n_ygrid];
 
-  for (int ix = 0; ix < n_xgrid; ++ix) {
-      cout<<endl;
-    for (int iy = 0; iy < n_ygrid; ++iy) {
+  for (int ix = 0; ix < cluster.n_xgrid; ++ix) {
+      
+    for (int iy = 0; iy < cluster.n_ygrid; ++iy) {
 
-	const double r = sqrt(dx*ix*dx*ix + iy*dy*dy*iy);
+	const double r = sqrt(cluster.dx*ix*cluster.dx*ix + iy*cluster.dy*cluster.dy*iy);
 
 	  B_field[ix][iy] =
-	    B_field_model(dx*ix, iy*dy, B_model);
+	    B_field_model(cluster.dx*ix, iy*cluster.dy, B_model);
     cout<< B_field[ix][iy] <<" ";
 	
       }
+
+    cout<<endl;
     
     }
   
@@ -115,6 +132,8 @@ double* y = 0;*/
 
 
 int main(){
+
+
   create_galaxy_cluster();
   return 0;
 

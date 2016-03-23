@@ -6,10 +6,14 @@ using namespace std;//AWS20050624
 #include "Cluster_Parameters"
 //**.****|****.****|****.****|****.****|****.****|****.****|****.****|****.****|
 
+int B_model; //should go to header
 
-double B_field_model(double x,double y) //third argument "int model" for multile preset models
-{
-   double 
+double B_field_model(double x,double y, int B_model) //third argument "int model" for multile preset models
+{	
+
+
+
+	
    float Bo, rscale, beta, eta
    float b_field=0.0;
 

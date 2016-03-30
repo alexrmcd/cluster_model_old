@@ -1,6 +1,6 @@
 
 //**.****|****.****|****.****|****.****|****.****|****.****|****.****|****.****|
-// * Cluster.h *                                                      3/15/2016 
+// * Cluster.h *                                                      3/28/2016 
 //**"****!****"****!****"****!****"****!****"****!****"****!****"****!****"****|
 
 #ifndef CLUSTER_H
@@ -31,9 +31,57 @@ int n_ygrid = (y_max - y_min)/dy;             // number of points in y
 double* y = 0;*/
 // array variables init end
 
-double x_min, x_max, dx, y_min, y_max, dy; 
+double x_min, x_max, dx, y_min, y_max, dy;
 
-int n_xgrid, n_ygrid;
+double E_min, E_max, E_factor;  
+
+int n_xgrid, n_ygrid, n_Egrid;
+
+
+
+
+
+
+
+
+//Will eventually be separate header
+struct Spectrum { 
+
+  //public: 
+
+  double* s; //AWS20050624
+
+};
+
+//Belongs in own header
+class Distribution {
+
+ public:
+
+  int n_Egrid;          // number of points in Energy
+      
+  int n_xgrid;          // number of points in x 
+  int n_ygrid;          // number of points in y 
+  
+
+  //bool arrays_assigned;
+  
+
+  Spectrum  **d2; // 2D array
+
+  //Distribution();   // needed for initial construction
+  };
+
+
+
+  Distribution B_field;
+
+
+
+
+
+
+
 
 };
 

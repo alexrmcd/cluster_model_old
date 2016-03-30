@@ -20,3 +20,11 @@ To compile FORTRAN modules using the Storm modules + DARKSUSY, use the folowing 
 
 
 To recompile the modules, use the command "make all"
+
+
+
+To create link between fortran and C, compile each separately, then link in executable, then run.
+Ex.
+ $ gfortran -c Ftest.f
+ $ g++ -c Ctest.cc
+ $ g++ -o test Ctest.o Ftest.o -lgfortran
